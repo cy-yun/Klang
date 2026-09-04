@@ -23,13 +23,19 @@ struct SoundsWidgetConfigIntent: WidgetConfigurationIntent {
                default: false)
     var isFullBlast: Bool
 
-    init(sounds: [SoundEntity] = SoundEntity.default, isFullBlast: Bool) {
+    @Parameter(title: "Overlay",
+               description: "If enabled, sounds play on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while a sound plays.",
+               default: false)
+    var isOverlay: Bool
+
+    init(sounds: [SoundEntity] = SoundEntity.default, isFullBlast: Bool, isOverlay: Bool) {
         self.sounds = sounds
         self.isFullBlast = isFullBlast
+        self.isOverlay = isOverlay
     }
 
     init() { 
-        self.init(isFullBlast: false)
+        self.init(isFullBlast: false, isOverlay: false)
     }
 }
 
@@ -45,13 +51,19 @@ struct BoardWidgetConfigIntent: WidgetConfigurationIntent {
                default: false)
     var isFullBlast: Bool
 
-    init(board: BoardEntity? = .default, isFullBlast: Bool) {
+    @Parameter(title: "Overlay",
+               description: "If enabled, sounds play on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while a sound plays.",
+               default: false)
+    var isOverlay: Bool
+
+    init(board: BoardEntity? = .default, isFullBlast: Bool, isOverlay: Bool) {
         self.board = board
         self.isFullBlast = isFullBlast
+        self.isOverlay = isOverlay
     }
 
     init() { 
-        self.init(isFullBlast: false)
+        self.init(isFullBlast: false, isOverlay: false)
     }
 }
 
@@ -69,12 +81,18 @@ struct SingleSoundWidgetConfigIntent: ControlConfigurationIntent {
                default: false)
     var isFullBlast: Bool
 
-    init(sound: SoundEntity? = SoundEntity.default.first, isFullBlast: Bool) {
+    @Parameter(title: "Overlay",
+               description: "If enabled, sounds play on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while a sound plays.",
+               default: false)
+    var isOverlay: Bool
+
+    init(sound: SoundEntity? = SoundEntity.default.first, isFullBlast: Bool, isOverlay: Bool) {
         self.sound = sound
         self.isFullBlast = isFullBlast
+        self.isOverlay = isOverlay
     }
 
     init() {
-        self.init(isFullBlast: false)
+        self.init(isFullBlast: false, isOverlay: false)
     }
 }

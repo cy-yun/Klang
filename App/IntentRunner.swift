@@ -26,7 +26,7 @@ enum IntentRunner {
             return .result()
         }
 
-        guard let fileURL = sound.file.fileURL, let newPlayer = try? AudioPlayer(url: fileURL) else {
+        guard let fileURL = sound.file.fileURL, let newPlayer = try? AudioPlayer(url: fileURL, isOverlay: intent.isOverlay) else {
             AudioErrorManager.errorManager.reportError("There was a error in the Widget")
             return .result()
         }

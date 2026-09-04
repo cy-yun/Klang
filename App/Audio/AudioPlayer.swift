@@ -14,6 +14,9 @@ import MediaPlayer
 @Observable
 final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     let player: AVAudioPlayer
+
+    /// Plays the sound on top of other audio instead of interrupting it.
+    var isOverlay: Bool
     
     var isPlaying: Bool = false
     
@@ -23,9 +26,10 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     private var playingTask: Task<Void, Never>?
     private var progressTask: Task<Void, Never>?
     
-    init(url: URL) throws {
+    init(url: URL, isOverlay: Bool = false) throws {
         print(url)
         self.player = try AVAudioPlayer(contentsOf: url)
+        self.isOverlay = isOverlay
         super.init()
         self.player.delegate = self
     }
@@ -33,8 +37,24 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     static let queue = ConcurrentQueue(setup: { try AudioPlayer.activate() }, teardown: { try AudioPlayer.deactivate() })
 
     static func activate() throws {
-        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
         try AVAudioSession.sharedInstance().setActive(true)
+    }
+
+    static func configureSession(isOverlay: Bool) throws {
+        try AVAudioSession.sharedInstance().setCategory(.playback,
+                                                        mode: Self.sessionMode(isOverlay: isOverlay),
+                                                        options: Self.sessionOptions(isOverlay: isOverlay))
+    }
+
+    /// Overlay sounds play over other audio. Per the AVAudioSession docs for the
+    /// `voicePrompt` mode and the `interruptSpokenAudioAndMixWithOthers` option, such audio ducks music
+    /// and pauses spoken audio (podcasts, audiobooks), which resumes afterwards.
+    static func sessionMode(isOverlay: Bool) -> AVAudioSession.Mode {
+        isOverlay ? .voicePrompt : .default
+    }
+
+    static func sessionOptions(isOverlay: Bool) -> AVAudioSession.CategoryOptions {
+        isOverlay ? [.duckOthers, .interruptSpokenAudioAndMixWithOthers] : []
     }
     
     static func deactivate() throws {
@@ -46,6 +66,7 @@ final class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
     
     func playOnQueue() async throws {
+        try Self.configureSession(isOverlay: self.isOverlay)
         try await Self.queue.add {
             await self.play()
         }
