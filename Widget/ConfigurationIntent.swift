@@ -23,7 +23,7 @@ struct SoundsWidgetConfigIntent: WidgetConfigurationIntent {
                default: false)
     var isFullBlast: Bool
 
-    @Parameter(title: "Overlay",
+    @Parameter(title: "Play Over Music",
                description: "If enabled, sounds play on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while a sound plays.",
                default: false)
     var isOverlay: Bool
@@ -51,7 +51,7 @@ struct BoardWidgetConfigIntent: WidgetConfigurationIntent {
                default: false)
     var isFullBlast: Bool
 
-    @Parameter(title: "Overlay",
+    @Parameter(title: "Play Over Music",
                description: "If enabled, sounds play on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while a sound plays.",
                default: false)
     var isOverlay: Bool
@@ -81,7 +81,7 @@ struct SingleSoundWidgetConfigIntent: ControlConfigurationIntent {
                default: false)
     var isFullBlast: Bool
 
-    @Parameter(title: "Overlay",
+    @Parameter(title: "Play Over Music",
                description: "If enabled, sounds play on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while a sound plays.",
                default: false)
     var isOverlay: Bool

@@ -35,8 +35,7 @@ struct SoundIntent: AudioPlaybackIntent {
         self.isOverlay = isOverlay
     }
     
-    init() {
-    }
+    init() { }
     
     func perform() async throws -> some IntentResult {
         return try await IntentRunner.perform(intent: self)
