@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import WidgetSoundboard
+@testable import Klang
 
 final class WidgetSoundboardTests: XCTestCase {
 

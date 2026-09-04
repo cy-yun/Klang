@@ -14,7 +14,7 @@ struct SoundControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         AppIntentControlConfiguration(kind: "app.klang.sounds_widget.control",
                                       provider: Provider()) { sound in
-            ControlWidgetButton(action: SoundIntent(sound: sound, isFullBlast: false), label: {
+            ControlWidgetButton(action: SoundIntent(sound: sound, isFullBlast: false, isOverlay: false), label: {
                 if let sound {
                     Label("\(sound.symbol) \(sound.title)",
                           image: "custom.speaker.wave.2.fill.badge.play")
