@@ -34,12 +34,16 @@ struct SoundEntity: AppEntity, Identifiable, Hashable {
     @Property(title: "Sound")
     var file: IntentFile
 
-    init(id: UUID, title: String, symbol: String, color: Color, url: URL) {
+    @Property(title: "Overlay")
+    var isOverlay: Bool
+
+    init(id: UUID, title: String, symbol: String, color: Color, url: URL, isOverlay: Bool) {
         self.id = id
         self.title = title
         self.symbol = symbol
         self.color = color.hex()
         self.file = IntentFile(fileURL: url)
+        self.isOverlay = isOverlay
     }
 
     init(sound: Sound) {
@@ -48,7 +52,8 @@ struct SoundEntity: AppEntity, Identifiable, Hashable {
             title: sound.title,
             symbol: sound.symbol,
             color: sound.color,
-            url: sound.url
+            url: sound.url,
+            isOverlay: sound.isOverlay
         )
     }
 

@@ -118,7 +118,7 @@ struct AddSoundButton: View {
         }
         .overlay {
             Button(action: {
-                let audioPlayer = try! self.player ?? AudioPlayer(url: sound.url)
+                let audioPlayer = try! self.player ?? AudioPlayer(url: sound.url, isOverlay: sound.isOverlay)
                 self.player = audioPlayer
                 if audioPlayer.player.isPlaying {
                     audioPlayer.stop()

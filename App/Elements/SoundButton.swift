@@ -26,7 +26,7 @@ struct SoundButton: View {
         Button(action: {
             do {
                 if self.player == nil {
-                    self.player = try AudioPlayer(url: sound.url)
+                    self.player = try AudioPlayer(url: sound.url, isOverlay: sound.isOverlay)
                 }
 
                 guard let audioPlayer = self.player else { return }

@@ -80,21 +80,24 @@ struct Sound: Codable, Defaults.Serializable, Identifiable, Hashable, Transferab
     var symbol: String
     var color: Color
     var url: URL
+    var isOverlay: Bool
 
-    init(id: UUID = .init(), title: String, symbol: String, color: Color, url: URL) {
+    init(id: UUID = .init(), title: String, symbol: String, color: Color, url: URL, isOverlay: Bool = false) {
         self.id = id
         self.url = url
         self.title = title
         self.symbol = symbol
         self.color = color
+        self.isOverlay = isOverlay
     }
     
-    init(id: UUID = .init(), title: String, symbol: String, color: Color, file: String) {
+    init(id: UUID = .init(), title: String, symbol: String, color: Color, file: String, isOverlay: Bool = false) {
         self.id = id
         self.title = title
         self.symbol = symbol
         self.color = color
         self.url = Bundle.main.url(forResource: file, withExtension: nil)!
+        self.isOverlay = isOverlay
     }
     
     public func set<Value>(_ keyPath: WritableKeyPath<Self, Value>, to value: Value) -> Self {
@@ -103,6 +106,23 @@ struct Sound: Codable, Defaults.Serializable, Identifiable, Hashable, Transferab
         return object
     }
     
+    // MARK: - Codable
+
+    enum CodingKeys: String, CodingKey {
+        case id, title, symbol, color, url, isOverlay
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.symbol = try container.decode(String.self, forKey: .symbol)
+        self.color = try container.decode(Color.self, forKey: .color)
+        self.url = try container.decode(URL.self, forKey: .url)
+        // Sounds saved before this option existed don't have the key, so they keep the default.
+        self.isOverlay = try container.decodeIfPresent(Bool.self, forKey: .isOverlay) ?? false
+    }
+
     // MARK: - Transferable
     
     static var transferRepresentation: some TransferRepresentation {

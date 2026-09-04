@@ -15,6 +15,7 @@ struct EditorView: View {
     @State var symbol: String
     @State var file: URL?
     @State var color: Color = .red
+    @State var isOverlay: Bool = false
     
     @State var isImporting: Bool = false
     @State var isEmojiPickerPresent: Bool = false
@@ -36,6 +37,7 @@ struct EditorView: View {
          symbol: String = "🚦",
          file: URL? = nil,
          color: Color? = nil,
+         isOverlay: Bool = false,
          id: UUID = .init(),
          isExisting: Bool = false,
          boardID: UUID? = nil) {
@@ -49,6 +51,7 @@ struct EditorView: View {
         } else {
             self._color = State(initialValue: .red)
         }
+        self._isOverlay = State(initialValue: isOverlay)
         self._id = State(initialValue: id)
         self._isExisting = State(initialValue: isExisting)
         self.boardID = boardID
@@ -59,6 +62,7 @@ struct EditorView: View {
                   symbol: sound.symbol,
                   file: sound.url,
                   color: sound.color,
+                  isOverlay: sound.isOverlay,
                   id: sound.id,
                   isExisting: true,
                   boardID: boardID)
@@ -102,6 +106,7 @@ struct EditorView: View {
                             VStack(alignment: .center, spacing: 8) {
                                 Button(action: {
                                     let audioPlayer = try! self.audioPlayer ?? AudioPlayer(url: url)
+                                    audioPlayer.isOverlay = self.isOverlay
                                     self.audioPlayer = audioPlayer
                                     if audioPlayer.isPlaying {
                                         audioPlayer.stop()
@@ -267,6 +272,12 @@ struct EditorView: View {
                         .buttonBorderShape(.circle)
                     }
                 }
+
+                Section {
+                    Toggle("Overlay", isOn: $isOverlay)
+                } footer: {
+                    Text("Plays this sound on top of other audio instead of interrupting it. Music is turned down and podcasts are paused while it plays.")
+                }
             }
             .animation(.default, value: self.waveform.isEmpty)
             .animation(.default, value: self.file != nil)
@@ -305,7 +316,8 @@ struct EditorView: View {
                               title: self.title,
                               symbol: self.symbol,
                               color: self.color,
-                              url: file)
+                              url: file,
+                              isOverlay: self.isOverlay)
             Defaults[.sounds].upsert(sound, by: \.id)
             if let boardID, var board = Defaults[.boards].first(where: { $0.id == boardID }) {
                 board.sounds.append(self.id)

@@ -16,6 +16,7 @@
 		B30338EE2A30D06300CEDD47 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B30338ED2A30D06300CEDD47 /* Preview Assets.xcassets */; };
 		B30338F02A30D06300CEDD47 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30338EF2A30D06300CEDD47 /* Data.swift */; };
 		B30338FC2A30D06300CEDD47 /* WidgetSoundboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30338FB2A30D06300CEDD47 /* WidgetSoundboardTests.swift */; };
+		B3F00A022E68A1B200C4D5E6 /* SoundTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F00A012E68A1B200C4D5E6 /* SoundTests.swift */; };
 		B30339062A30D06400CEDD47 /* WidgetSoundboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30339052A30D06400CEDD47 /* WidgetSoundboardUITests.swift */; };
 		B30339082A30D06400CEDD47 /* WidgetSoundboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30339072A30D06400CEDD47 /* WidgetSoundboardUITestsLaunchTests.swift */; };
 		B30339152A30D08100CEDD47 /* Intent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30339142A30D08100CEDD47 /* Intent.swift */; };
@@ -140,6 +141,7 @@
 		B30338F22A30D06300CEDD47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B30338F72A30D06300CEDD47 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B30338FB2A30D06300CEDD47 /* WidgetSoundboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSoundboardTests.swift; sourceTree = "<group>"; };
+		B3F00A012E68A1B200C4D5E6 /* SoundTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundTests.swift; sourceTree = "<group>"; };
 		B30339012A30D06400CEDD47 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B30339052A30D06400CEDD47 /* WidgetSoundboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSoundboardUITests.swift; sourceTree = "<group>"; };
 		B30339072A30D06400CEDD47 /* WidgetSoundboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSoundboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				B30338FB2A30D06300CEDD47 /* WidgetSoundboardTests.swift */,
+				B3F00A012E68A1B200C4D5E6 /* SoundTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30338FC2A30D06300CEDD47 /* WidgetSoundboardTests.swift in Sources */,
+				B3F00A022E68A1B200C4D5E6 /* SoundTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
