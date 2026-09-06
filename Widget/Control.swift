@@ -13,9 +13,9 @@ import AppIntents
 struct SoundControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         AppIntentControlConfiguration(kind: "app.klang.sounds_widget.control",
-                                      provider: Provider()) { sound in
-            ControlWidgetButton(action: SoundIntent(sound: sound, isFullBlast: false), label: {
-                if let sound {
+                                      provider: Provider()) { config in
+            ControlWidgetButton(action: SoundIntent(sound: config?.sound, isFullBlast: config?.isFullBlast ?? false, isOverlay: config?.isOverlay ?? false), label: {
+                if let sound = config?.sound {
                     Label("\(sound.symbol) \(sound.title)",
                           image: "custom.speaker.wave.2.fill.badge.play")
                     .controlWidgetActionHint("Play \(sound.title)")
@@ -27,7 +27,7 @@ struct SoundControl: ControlWidget {
                     Text("Playing")
                 }
             })
-            .tint((sound?.color).flatMap(Color.init(hex:))?.ensureContrast ?? .red)
+            .tint((config?.sound?.color).flatMap(Color.init(hex:))?.ensureContrast ?? .red)
         }
                                       .promptsForUserConfiguration()
                                       .displayName("Play Sound")
@@ -35,13 +35,13 @@ struct SoundControl: ControlWidget {
     }
 
     struct Provider: AppIntentControlValueProvider {
-        func previewValue(configuration: SingleSoundWidgetConfigIntent) -> SoundEntity? {
-            configuration.sound
+        func previewValue(configuration: SingleSoundWidgetConfigIntent) -> SingleSoundWidgetConfigIntent? {
+            configuration
         }
 
 
-        func currentValue(configuration: SingleSoundWidgetConfigIntent) async throws -> SoundEntity? {
-            configuration.sound
+        func currentValue(configuration: SingleSoundWidgetConfigIntent) async throws -> SingleSoundWidgetConfigIntent? {
+            configuration
         }
     }
 }

@@ -142,7 +142,7 @@ struct SoundWidgetEntryView<Entry: SoundboardTimelineEntry>: View {
                                             Group {
                                                 switch item {
                                                 case .sound(let sound, _):
-                                                    Button(intent: SoundIntent(sound: sound, isFullBlast: entry.isFullBlast)) {
+                                                    Button(intent: SoundIntent(sound: sound, isFullBlast: entry.isFullBlast, isOverlay: entry.isOverlay)) {
                                                         Text(sound.symbol)
                                                             .minimumScaleFactor(0.5)
                                                             .font(.title2)

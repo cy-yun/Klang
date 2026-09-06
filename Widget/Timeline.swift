@@ -13,6 +13,7 @@ protocol SoundboardTimelineEntry: TimelineEntry {
 
     var sounds: [SoundEntity] { get }
     var isFullBlast: Bool { get }
+    var isOverlay: Bool { get }
     var board: BoardEntity? { get }
 }
 
@@ -24,6 +25,7 @@ struct SoundsEntry: SoundboardTimelineEntry {
     var sounds: [SoundEntity] { config.sounds }
 
     var isFullBlast: Bool { config.isFullBlast }
+    var isOverlay: Bool { config.isOverlay }
     var board: BoardEntity? { nil }
 }
 
@@ -36,6 +38,8 @@ struct BoardEntry: SoundboardTimelineEntry {
     }
 
     var isFullBlast: Bool { config.isFullBlast }
+
+    var isOverlay: Bool { config.isOverlay }
 
     var board: BoardEntity? { config.board }
 
